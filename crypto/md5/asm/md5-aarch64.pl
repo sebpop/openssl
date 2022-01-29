@@ -39,7 +39,7 @@ ossl_md5_block_asm_data_order:
 ossl_md5_blocks_loop:
         eor x17, x12, x13             // Begin aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         and x16, x17, x11             // Continue aux function round 1 F(x,y,z)=(((y^z)&x)^z)
-        ldr x15, [x1]                 // Load two words of input data0 M[0]/0
+        ldp x15, x3, [x1]             // Load 4 words of input data0 M[0]/0
         eor x14, x16, x13             // End aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         movz x9, #0xa478              // Load lower half of constant 0xd76aa478
         movk x9, #0xd76a, lsl #16     // Load upper half of constant 0xd76aa478
@@ -49,8 +49,8 @@ ossl_md5_blocks_loop:
         ror w6, w6, #25               // Rotate left s=7 bits
         eor x5, x11, x12              // Begin aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         add w4, w11, w6               // Add X parameter round 1 A=FF(A, B, C, D, 0xd76aa478, s=7, M[0])
-        and x3, x5, x4                // Continue aux function round 1 F(x,y,z)=(((y^z)&x)^z)
-        eor x17, x3, x12              // End aux function round 1 F(x,y,z)=(((y^z)&x)^z)
+        and x8, x5, x4                // Continue aux function round 1 F(x,y,z)=(((y^z)&x)^z)
+        eor x17, x8, x12              // End aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         movz x16, #0xb756             // Load lower half of constant 0xe8c7b756
         movk x16, #0xe8c7, lsl #16    // Load upper half of constant 0xe8c7b756
         lsr x8, x15, #32              // Right shift high input value containing M[1]
@@ -60,7 +60,6 @@ ossl_md5_blocks_loop:
         ror w14, w14, #20             // Rotate left s=12 bits
         eor x6, x4, x11               // Begin aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         add w5, w4, w14               // Add X parameter round 1 D=FF(D, A, B, C, 0xe8c7b756, s=12, M[1])
-        ldr x3, [x1, #8]              // Load two words of input data0 M[2]/0
         and x8, x6, x5                // Continue aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         eor x9, x8, x11               // End aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         movz x16, #0x70db             // Load lower half of constant 0x242070db
