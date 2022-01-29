@@ -695,7 +695,6 @@ ossl_md5_blocks_loop:
         stp w10, w11, [x0]            // Store MD5 states A,B
         add x1, x1, #64               // Increment data pointer
         subs w2, w2, #1               // Decrement block counter
-        prfm pldl1keep, [x1, #64]     // Prefetch input
         b.ne ossl_md5_blocks_loop
 
         ret
