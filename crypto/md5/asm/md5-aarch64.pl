@@ -33,10 +33,8 @@ $code .= <<EOF;
 .globl  ossl_md5_block_asm_data_order
 .type   ossl_md5_block_asm_data_order,\@function
 ossl_md5_block_asm_data_order:
-        ldr w13, [x0, #12]            // Load MD5 state->D
-        ldr w12, [x0, #8]             // Load MD5 state->C
-        ldr w11, [x0, #4]             // Load MD5 state->B
-        ldr w10, [x0, #0]             // Load MD5 state->A
+        ldp w10, w11, [x0, #0]        // Load MD5 state->A and state->B
+        ldp w12, w13, [x0, #8]        // Load MD5 state->C and state->D
 .align 5
 ossl_md5_blocks_loop:
         eor x17, x12, x13             // Begin aux function round 1 F(x,y,z)=(((y^z)&x)^z)
@@ -685,11 +683,9 @@ ossl_md5_blocks_loop:
         eor x17, x4, x6               // End aux function round 4 I(x,y,z)=((~z|x)^y)
         add w16, w15, w3              // Add constant 0xeb86d391
         add w8, w16, w17              // Add aux function result
-        ldr w9, [x0, #12]             // Reload MD5 state->D
         ror w8, w8, #11               // Rotate left s=21 bits
-        ldr w5, [x0, #8]              // Reload MD5 state->C
-        ldr w6, [x0, #0]              // Reload MD5 state->A
-        ldr w15, [x0, #4]             // Reload MD5 state->B
+        ldp w6, w15, [x0]             // Reload MD5 state->A and state->B
+        ldp w5, w9, [x0, #8]          // Reload MD5 state->C and state->D
         add w3, w14, w8               // Add X parameter round 4 B=II(B, C, D, A, 0xeb86d391, s=21, M[9])
         add w13, w4, w9               // Add result of MD5 rounds to state->D
         add w12, w14, w5              // Add result of MD5 rounds to state->C
