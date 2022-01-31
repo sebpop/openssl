@@ -1,5 +1,5 @@
 #! /usr/bin/env perl
-# Copyright 2021-2021 The OpenSSL Project Authors. All Rights Reserved.
+# Copyright 2021-2022 The OpenSSL Project Authors. All Rights Reserved.
 #
 # Licensed under the Apache License 2.0 (the "License").  You may not use
 # this file except in compliance with the License.  You can obtain a copy
@@ -33,6 +33,14 @@ $code .= <<EOF;
 .globl  ossl_md5_block_asm_data_order
 .type   ossl_md5_block_asm_data_order,\@function
 ossl_md5_block_asm_data_order:
+        // Save IP0, IP1, and all callee-saved registers
+        stp     x16,x17,[sp,#-96]!
+	stp	x19,x20,[sp,#16]
+	stp	x21,x22,[sp,#32]
+	stp	x23,x24,[sp,#48]
+	stp	x25,x26,[sp,#64]
+	stp	x27,x28,[sp,#80]
+
         ldp w10, w11, [x0, #0]        // Load MD5 state->A and state->B
         ldp w12, w13, [x0, #8]        // Load MD5 state->C and state->D
 .align 5
@@ -695,6 +703,12 @@ ossl_md5_blocks_loop:
         subs w2, w2, #1               // Decrement block counter
         b.ne ossl_md5_blocks_loop
 
+	ldp	x19,x20,[sp,#16]
+	ldp	x21,x22,[sp,#32]
+	ldp	x23,x24,[sp,#48]
+	ldp	x25,x26,[sp,#64]
+	ldp	x27,x28,[sp,#80]
+	ldp	x16,x17,[sp],#96
         ret
 
 EOF
