@@ -211,8 +211,8 @@ ossl_md5_blocks_loop:
         eor x6, x6, x4                // End aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         movz x13, #0x821              // Load lower half of constant 0x49b40821
         movk x13, #0x49b4, lsl #16    // Load upper half of constant 0x49b40821
-        lsr x10, x12, #32             // Right shift high input value containing M[15]
-        add w9, w9, w10               // Add dest value
+        lsr x27, x12, #32             // Right shift high input value containing M[15]
+        add w9, w9, w27               // Add dest value
         add w9, w9, w13               // Add constant 0x49b40821
         add w9, w9, w6                // Add aux function result
         ror w9, w9, #10               // Rotate left s=22 bits
@@ -282,8 +282,7 @@ ossl_md5_blocks_loop:
         orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         movz x13, #0xe681             // Load lower half of constant 0xd8a1e681
         movk x13, #0xd8a1, lsl #16    // Load upper half of constant 0xd8a1e681
-        lsr x10, x12, #32             // Right shift high input value containing M[15]
-        add w8, w8, w10               // Add dest value
+        add w8, w8, w27               // Add dest value
         add w8, w8, w13               // Add constant 0xd8a1e681
         add w8, w8, w6                // Add aux function result
         ror w8, w8, #18               // Rotate left s=14 bits
@@ -504,11 +503,10 @@ ossl_md5_blocks_loop:
         add w17, w17, w6              // Add aux function result
         eor x6, x4, x9                // Begin aux function round 3 H(x,y,z)=(x^y^z)
         ror w17, w17, #21             // Rotate left s=11 bits
-        lsr x10, x12, #32             // Right shift high input value containing M[15]
         movz x13, #0x7cf8             // Load lower half of constant 0x1fa27cf8
         add w17, w4, w17              // Add X parameter round 3 D=HH(D, A, B, C, 0xe6db99e5, s=11, M[12])
         movk x13, #0x1fa2, lsl #16    // Load upper half of constant 0x1fa27cf8
-        add w8, w8, w10               // Add dest value
+        add w8, w8, w27               // Add dest value
         eor x6, x6, x17               // End aux function round 3 H(x,y,z)=(x^y^z)
         add w8, w8, w13               // Add constant 0x1fa27cf8
         add w8, w8, w6                // Add aux function result
@@ -606,9 +604,8 @@ ossl_md5_blocks_loop:
         movz x15, #0xe6e0             // Load lower half of constant 0xfe2ce6e0
         movk x15, #0xfe2c, lsl #16    // Load upper half of constant 0xfe2ce6e0
         add w4, w17, w9               // Add X parameter round 4 A=II(A, B, C, D, 0x6fa87e4f, s=6, M[8])
-        lsr x12, x12, #32             // Right shift high input value containing M[15]
         orn x9, x4, x8                // Begin aux function round 4 I(x,y,z)=((~z|x)^y)
-        add w6, w6, w12               // Add dest value
+        add w6, w6, w27               // Add dest value
         eor x9, x17, x9               // End aux function round 4 I(x,y,z)=((~z|x)^y)
         add w15, w6, w15              // Add constant 0xfe2ce6e0
         add w6, w15, w9               // Add aux function result
