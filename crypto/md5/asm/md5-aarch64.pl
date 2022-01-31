@@ -175,29 +175,28 @@ ossl_md5_blocks_loop:
         ror w9, w9, #10               // Rotate left s=22 bits
         eor x4, x8, x17               // Begin aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         add w9, w8, w9                // Add X parameter round 1 B=FF(B, C, D, A, 0x895cd7be, s=22, M[11])
-        ldr x11, [x1, #48]            // Load two words of input data0 M[12]/0
+        ldp x11, x12, [x1, #48]       // Load 4 words of input data0 M[12]/0
         and x4, x4, x9                // Continue aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         eor x4, x4, x17               // End aux function round 1 F(x,y,z)=(((y^z)&x)^z)
-        movz x12, #0x1122             // Load lower half of constant 0x6b901122
-        movk x12, #0x6b90, lsl #16    // Load upper half of constant 0x6b901122
+        movz x19, #0x1122             // Load lower half of constant 0x6b901122
+        movk x19, #0x6b90, lsl #16    // Load upper half of constant 0x6b901122
         add w6, w6, w11               // Add dest value
-        add w6, w6, w12               // Add constant 0x6b901122
+        add w6, w6, w19               // Add constant 0x6b901122
         add w4, w6, w4                // Add aux function result
         ror w4, w4, #25               // Rotate left s=7 bits
         eor x6, x9, x8                // Begin aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         add w4, w9, w4                // Add X parameter round 1 A=FF(A, B, C, D, 0x6b901122, s=7, M[12])
         and x6, x6, x4                // Continue aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         eor x6, x6, x8                // End aux function round 1 F(x,y,z)=(((y^z)&x)^z)
-        movz x12, #0x7193             // Load lower half of constant 0xfd987193
-        movk x12, #0xfd98, lsl #16    // Load upper half of constant 0xfd987193
+        movz x19, #0x7193             // Load lower half of constant 0xfd987193
+        movk x19, #0xfd98, lsl #16    // Load upper half of constant 0xfd987193
         lsr x13, x11, #32             // Right shift high input value containing M[13]
         add w17, w17, w13             // Add dest value
-        add w17, w17, w12             // Add constant 0xfd987193
+        add w17, w17, w19             // Add constant 0xfd987193
         add w17, w17, w6              // Add aux function result
         ror w17, w17, #20             // Rotate left s=12 bits
         eor x6, x4, x9                // Begin aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         add w17, w4, w17              // Add X parameter round 1 D=FF(D, A, B, C, 0xfd987193, s=12, M[13])
-        ldr x12, [x1, #56]            // Load two words of input data0 M[14]/0
         and x6, x6, x17               // Continue aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         eor x6, x6, x9                // End aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         movz x13, #0x438e             // Load lower half of constant 0xa679438e
