@@ -656,18 +656,17 @@ ossl_md5_blocks_loop:
         add w16, w15, w3              // Add constant 0xeb86d391
         add w8, w16, w17              // Add aux function result
         ror w8, w8, #11               // Rotate left s=21 bits
-        ldp w6, w15, [x0]             // Reload MD5 state->A and state->B
-        ldp w5, w9, [x0, #8]          // Reload MD5 state->C and state->D
         add w3, w14, w8               // Add X parameter round 4 B=II(B, C, D, A, 0xeb86d391, s=21, M[9])
-        add w13, w4, w9               // Add result of MD5 rounds to state->D
-        add w12, w14, w5              // Add result of MD5 rounds to state->C
-        add w10, w7, w6               // Add result of MD5 rounds to state->A
-        add w11, w3, w15              // Add result of MD5 rounds to state->B
-        stp w12, w13, [x0, #8]        // Store MD5 states C,D
-        stp w10, w11, [x0]            // Store MD5 states A,B
+        add w10, w10, w7              // Add result of MD5 rounds to state->A
+        add w11, w11, w3              // Add result of MD5 rounds to state->B
+        add w12, w12, w14             // Add result of MD5 rounds to state->C
+        add w13, w13, w4              // Add result of MD5 rounds to state->D
         add x1, x1, #64               // Increment data pointer
         subs w2, w2, #1               // Decrement block counter
         b.ne ossl_md5_blocks_loop
+
+        stp w10, w11, [x0]            // Store MD5 states A,B
+        stp w12, w13, [x0, #8]        // Store MD5 states C,D
 
 	ldp	x19,x20,[sp,#16]
 	ldp	x21,x22,[sp,#32]
