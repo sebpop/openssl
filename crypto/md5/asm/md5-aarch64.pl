@@ -192,180 +192,180 @@ ossl_md5_blocks_loop:
         add w17, w4, w17              // Add X parameter round 1 D=FF(D, A, B, C, 0xfd987193, s=12, M[13])
         and x6, x6, x17               // Continue aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         eor x6, x6, x9                // End aux function round 1 F(x,y,z)=(((y^z)&x)^z)
-        movz x13, #0x438e             // Load lower half of constant 0xa679438e
-        movk x13, #0xa679, lsl #16    // Load upper half of constant 0xa679438e
+        movz x23, #0x438e             // Load lower half of constant 0xa679438e
+        movk x23, #0xa679, lsl #16    // Load upper half of constant 0xa679438e
         add w8, w8, w22               // Add dest value
-        add w8, w8, w13               // Add constant 0xa679438e
+        add w8, w8, w23               // Add constant 0xa679438e
         add w8, w8, w6                // Add aux function result
         ror w8, w8, #15               // Rotate left s=17 bits
         eor x6, x17, x4               // Begin aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         add w8, w17, w8               // Add X parameter round 1 C=FF(C, D, A, B, 0xa679438e, s=17, M[14])
         and x6, x6, x8                // Continue aux function round 1 F(x,y,z)=(((y^z)&x)^z)
         eor x6, x6, x4                // End aux function round 1 F(x,y,z)=(((y^z)&x)^z)
-        movz x13, #0x821              // Load lower half of constant 0x49b40821
-        movk x13, #0x49b4, lsl #16    // Load upper half of constant 0x49b40821
+        movz x23, #0x821              // Load lower half of constant 0x49b40821
+        movk x23, #0x49b4, lsl #16    // Load upper half of constant 0x49b40821
         add x9, x9, x22, lsr #32      // Add dest value M[15]
-        add w9, w9, w13               // Add constant 0x49b40821
+        add w9, w9, w23               // Add constant 0x49b40821
         add w9, w9, w6                // Add aux function result
         ror w9, w9, #10               // Rotate left s=22 bits
         bic x6, x8, x17               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w9, w8, w9                // Add X parameter round 1 B=FF(B, C, D, A, 0x49b40821, s=22, M[15])
-        and x13, x9, x17              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0x2562             // Load lower half of constant 0xf61e2562
-        movk x13, #0xf61e, lsl #16    // Load upper half of constant 0xf61e2562
+        and x23, x9, x17              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0x2562             // Load lower half of constant 0xf61e2562
+        movk x23, #0xf61e, lsl #16    // Load upper half of constant 0xf61e2562
         add x4, x4, x15, lsr #32      // Add dest value M[1]
-        add w4, w4, w13               // Add constant 0xf61e2562
+        add w4, w4, w23               // Add constant 0xf61e2562
         add w4, w4, w6                // Add aux function result
         ror w4, w4, #27               // Rotate left s=5 bits
         bic x6, x9, x8                // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w4, w9, w4                // Add X parameter round 2 A=GG(A, B, C, D, 0xf61e2562, s=5, M[1])
-        and x13, x4, x8               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0xb340             // Load lower half of constant 0xc040b340
-        movk x13, #0xc040, lsl #16    // Load upper half of constant 0xc040b340
+        and x23, x4, x8               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0xb340             // Load lower half of constant 0xc040b340
+        movk x23, #0xc040, lsl #16    // Load upper half of constant 0xc040b340
         add w17, w17, w7              // Add dest value
-        add w17, w17, w13             // Add constant 0xc040b340
+        add w17, w17, w23             // Add constant 0xc040b340
         add w17, w17, w6              // Add aux function result
         ror w17, w17, #23             // Rotate left s=9 bits
         bic x6, x4, x9                // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w17, w4, w17              // Add X parameter round 2 D=GG(D, A, B, C, 0xc040b340, s=9, M[6])
-        and x13, x17, x9              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0x5a51             // Load lower half of constant 0x265e5a51
-        movk x13, #0x265e, lsl #16    // Load upper half of constant 0x265e5a51
+        and x23, x17, x9              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0x5a51             // Load lower half of constant 0x265e5a51
+        movk x23, #0x265e, lsl #16    // Load upper half of constant 0x265e5a51
         add x8, x8, x16, lsr #32      // Add dest value M[11]
-        add w8, w8, w13               // Add constant 0x265e5a51
+        add w8, w8, w23               // Add constant 0x265e5a51
         add w8, w8, w6                // Add aux function result
         ror w8, w8, #18               // Rotate left s=14 bits
         bic x6, x17, x4               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w8, w17, w8               // Add X parameter round 2 C=GG(C, D, A, B, 0x265e5a51, s=14, M[11])
-        and x13, x8, x4               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0xc7aa             // Load lower half of constant 0xe9b6c7aa
-        movk x13, #0xe9b6, lsl #16    // Load upper half of constant 0xe9b6c7aa
+        and x23, x8, x4               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0xc7aa             // Load lower half of constant 0xe9b6c7aa
+        movk x23, #0xe9b6, lsl #16    // Load upper half of constant 0xe9b6c7aa
         add w9, w9, w15               // Add dest value
-        add w9, w9, w13               // Add constant 0xe9b6c7aa
+        add w9, w9, w23               // Add constant 0xe9b6c7aa
         add w9, w9, w6                // Add aux function result
         ror w9, w9, #12               // Rotate left s=20 bits
         bic x6, x8, x17               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w9, w8, w9                // Add X parameter round 2 B=GG(B, C, D, A, 0xe9b6c7aa, s=20, M[0])
-        and x13, x9, x17              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0x105d             // Load lower half of constant 0xd62f105d
-        movk x13, #0xd62f, lsl #16    // Load upper half of constant 0xd62f105d
+        and x23, x9, x17              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0x105d             // Load lower half of constant 0xd62f105d
+        movk x23, #0xd62f, lsl #16    // Load upper half of constant 0xd62f105d
         add x4, x4, x14, lsr #32      // Add dest value M[5]
-        add w4, w4, w13               // Add constant 0xd62f105d
+        add w4, w4, w23               // Add constant 0xd62f105d
         add w4, w4, w6                // Add aux function result
         ror w4, w4, #27               // Rotate left s=5 bits
         bic x6, x9, x8                // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w4, w9, w4                // Add X parameter round 2 A=GG(A, B, C, D, 0xd62f105d, s=5, M[5])
-        and x13, x4, x8               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0x1453             // Load lower half of constant 0x2441453
-        movk x13, #0x244, lsl #16     // Load upper half of constant 0x2441453
+        and x23, x4, x8               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0x1453             // Load lower half of constant 0x2441453
+        movk x23, #0x244, lsl #16     // Load upper half of constant 0x2441453
         add w17, w17, w16             // Add dest value
-        add w17, w17, w13             // Add constant 0x2441453
+        add w17, w17, w23             // Add constant 0x2441453
         add w17, w17, w6              // Add aux function result
         ror w17, w17, #23             // Rotate left s=9 bits
         bic x6, x4, x9                // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w17, w4, w17              // Add X parameter round 2 D=GG(D, A, B, C, 0x2441453, s=9, M[10])
-        and x13, x17, x9              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0xe681             // Load lower half of constant 0xd8a1e681
-        movk x13, #0xd8a1, lsl #16    // Load upper half of constant 0xd8a1e681
+        and x23, x17, x9              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0xe681             // Load lower half of constant 0xd8a1e681
+        movk x23, #0xd8a1, lsl #16    // Load upper half of constant 0xd8a1e681
         add x8, x8, x22, lsr #32      // Add dest value M[15]
-        add w8, w8, w13               // Add constant 0xd8a1e681
+        add w8, w8, w23               // Add constant 0xd8a1e681
         add w8, w8, w6                // Add aux function result
         ror w8, w8, #18               // Rotate left s=14 bits
         bic x6, x17, x4               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w8, w17, w8               // Add X parameter round 2 C=GG(C, D, A, B, 0xd8a1e681, s=14, M[15])
-        and x13, x8, x4               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0xfbc8             // Load lower half of constant 0xe7d3fbc8
-        movk x13, #0xe7d3, lsl #16    // Load upper half of constant 0xe7d3fbc8
+        and x23, x8, x4               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0xfbc8             // Load lower half of constant 0xe7d3fbc8
+        movk x23, #0xe7d3, lsl #16    // Load upper half of constant 0xe7d3fbc8
         add w9, w9, w14               // Add dest value
-        add w9, w9, w13               // Add constant 0xe7d3fbc8
+        add w9, w9, w23               // Add constant 0xe7d3fbc8
         add w9, w9, w6                // Add aux function result
         ror w9, w9, #12               // Rotate left s=20 bits
         bic x6, x8, x17               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w9, w8, w9                // Add X parameter round 2 B=GG(B, C, D, A, 0xe7d3fbc8, s=20, M[4])
-        and x13, x9, x17              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0xcde6             // Load lower half of constant 0x21e1cde6
-        movk x13, #0x21e1, lsl #16    // Load upper half of constant 0x21e1cde6
+        and x23, x9, x17              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0xcde6             // Load lower half of constant 0x21e1cde6
+        movk x23, #0x21e1, lsl #16    // Load upper half of constant 0x21e1cde6
         add x4, x4, x5, lsr #32       // Add dest value M[9]
-        add w4, w4, w13               // Add constant 0x21e1cde6
+        add w4, w4, w23               // Add constant 0x21e1cde6
         add w4, w4, w6                // Add aux function result
         ror w4, w4, #27               // Rotate left s=5 bits
         bic x6, x9, x8                // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w4, w9, w4                // Add X parameter round 2 A=GG(A, B, C, D, 0x21e1cde6, s=5, M[9])
-        and x13, x4, x8               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0x7d6              // Load lower half of constant 0xc33707d6
-        movk x13, #0xc337, lsl #16    // Load upper half of constant 0xc33707d6
+        and x23, x4, x8               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0x7d6              // Load lower half of constant 0xc33707d6
+        movk x23, #0xc337, lsl #16    // Load upper half of constant 0xc33707d6
         add w17, w17, w22             // Add dest value
-        add w17, w17, w13             // Add constant 0xc33707d6
+        add w17, w17, w23             // Add constant 0xc33707d6
         add w17, w17, w6              // Add aux function result
         ror w17, w17, #23             // Rotate left s=9 bits
         bic x6, x4, x9                // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w17, w4, w17              // Add X parameter round 2 D=GG(D, A, B, C, 0xc33707d6, s=9, M[14])
-        and x13, x17, x9              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0xd87              // Load lower half of constant 0xf4d50d87
-        movk x13, #0xf4d5, lsl #16    // Load upper half of constant 0xf4d50d87
+        and x23, x17, x9              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0xd87              // Load lower half of constant 0xf4d50d87
+        movk x23, #0xf4d5, lsl #16    // Load upper half of constant 0xf4d50d87
         add x8, x8, x3, lsr #32       // Add dest value M[3]
-        add w8, w8, w13               // Add constant 0xf4d50d87
+        add w8, w8, w23               // Add constant 0xf4d50d87
         add w8, w8, w6                // Add aux function result
         ror w8, w8, #18               // Rotate left s=14 bits
         bic x6, x17, x4               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w8, w17, w8               // Add X parameter round 2 C=GG(C, D, A, B, 0xf4d50d87, s=14, M[3])
-        and x13, x8, x4               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0x14ed             // Load lower half of constant 0x455a14ed
-        movk x13, #0x455a, lsl #16    // Load upper half of constant 0x455a14ed
+        and x23, x8, x4               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0x14ed             // Load lower half of constant 0x455a14ed
+        movk x23, #0x455a, lsl #16    // Load upper half of constant 0x455a14ed
         add w9, w9, w5                // Add dest value
-        add w9, w9, w13               // Add constant 0x455a14ed
+        add w9, w9, w23               // Add constant 0x455a14ed
         add w9, w9, w6                // Add aux function result
         ror w9, w9, #12               // Rotate left s=20 bits
         bic x6, x8, x17               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w9, w8, w9                // Add X parameter round 2 B=GG(B, C, D, A, 0x455a14ed, s=20, M[8])
-        and x13, x9, x17              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0xe905             // Load lower half of constant 0xa9e3e905
-        movk x13, #0xa9e3, lsl #16    // Load upper half of constant 0xa9e3e905
+        and x23, x9, x17              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0xe905             // Load lower half of constant 0xa9e3e905
+        movk x23, #0xa9e3, lsl #16    // Load upper half of constant 0xa9e3e905
         add x4, x4, x21, lsr #32      // Add dest value M[13]
-        add w4, w4, w13               // Add constant 0xa9e3e905
+        add w4, w4, w23               // Add constant 0xa9e3e905
         add w4, w4, w6                // Add aux function result
         ror w4, w4, #27               // Rotate left s=5 bits
         bic x6, x9, x8                // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w4, w9, w4                // Add X parameter round 2 A=GG(A, B, C, D, 0xa9e3e905, s=5, M[13])
-        and x13, x4, x8               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0xa3f8             // Load lower half of constant 0xfcefa3f8
-        movk x13, #0xfcef, lsl #16    // Load upper half of constant 0xfcefa3f8
+        and x23, x4, x8               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0xa3f8             // Load lower half of constant 0xfcefa3f8
+        movk x23, #0xfcef, lsl #16    // Load upper half of constant 0xfcefa3f8
         add w17, w17, w3              // Add dest value
-        add w17, w17, w13             // Add constant 0xfcefa3f8
+        add w17, w17, w23             // Add constant 0xfcefa3f8
         add w17, w17, w6              // Add aux function result
         ror w17, w17, #23             // Rotate left s=9 bits
         bic x6, x4, x9                // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w17, w4, w17              // Add X parameter round 2 D=GG(D, A, B, C, 0xfcefa3f8, s=9, M[2])
-        and x13, x17, x9              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0x2d9              // Load lower half of constant 0x676f02d9
-        movk x13, #0x676f, lsl #16    // Load upper half of constant 0x676f02d9
+        and x23, x17, x9              // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0x2d9              // Load lower half of constant 0x676f02d9
+        movk x23, #0x676f, lsl #16    // Load upper half of constant 0x676f02d9
         add x8, x8, x7, lsr #32       // Add dest value M[7]
-        add w8, w8, w13               // Add constant 0x676f02d9
+        add w8, w8, w23               // Add constant 0x676f02d9
         add w8, w8, w6                // Add aux function result
         ror w8, w8, #18               // Rotate left s=14 bits
         bic x6, x17, x4               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
         add w8, w17, w8               // Add X parameter round 2 C=GG(C, D, A, B, 0x676f02d9, s=14, M[7])
-        and x13, x8, x4               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        orr x6, x6, x13               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
-        movz x13, #0x4c8a             // Load lower half of constant 0x8d2a4c8a
-        movk x13, #0x8d2a, lsl #16    // Load upper half of constant 0x8d2a4c8a
+        and x23, x8, x4               // Aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        orr x6, x6, x23               // End aux function round 2 G(x,y,z)=((x&z)|(~z&y))
+        movz x23, #0x4c8a             // Load lower half of constant 0x8d2a4c8a
+        movk x23, #0x8d2a, lsl #16    // Load upper half of constant 0x8d2a4c8a
         add w9, w9, w21               // Add dest value
-        add w9, w9, w13               // Add constant 0x8d2a4c8a
+        add w9, w9, w23               // Add constant 0x8d2a4c8a
         add w9, w9, w6                // Add aux function result
         eor x6, x8, x17               // Begin aux function round 3 H(x,y,z)=(x^y^z)
         ror w9, w9, #12               // Rotate left s=20 bits
@@ -387,21 +387,21 @@ ossl_md5_blocks_loop:
         add w17, w17, w6              // Add aux function result
         eor x6, x4, x9                // Begin aux function round 3 H(x,y,z)=(x^y^z)
         ror w17, w17, #21             // Rotate left s=11 bits
-        movz x13, #0x6122             // Load lower half of constant 0x6d9d6122
+        movz x23, #0x6122             // Load lower half of constant 0x6d9d6122
         add w17, w4, w17              // Add X parameter round 3 D=HH(D, A, B, C, 0x8771f681, s=11, M[8])
-        movk x13, #0x6d9d, lsl #16    // Load upper half of constant 0x6d9d6122
+        movk x23, #0x6d9d, lsl #16    // Load upper half of constant 0x6d9d6122
         add x8, x8, x16, lsr #32      // Add dest value M[11]
         eor x6, x6, x17               // End aux function round 3 H(x,y,z)=(x^y^z)
-        add w8, w8, w13               // Add constant 0x6d9d6122
+        add w8, w8, w23               // Add constant 0x6d9d6122
         add w8, w8, w6                // Add aux function result
         ror w8, w8, #16               // Rotate left s=16 bits
         eor x6, x17, x4               // Begin aux function round 3 H(x,y,z)=(x^y^z)
-        movz x13, #0x380c             // Load lower half of constant 0xfde5380c
+        movz x23, #0x380c             // Load lower half of constant 0xfde5380c
         add w8, w17, w8               // Add X parameter round 3 C=HH(C, D, A, B, 0x6d9d6122, s=16, M[11])
-        movk x13, #0xfde5, lsl #16    // Load upper half of constant 0xfde5380c
+        movk x23, #0xfde5, lsl #16    // Load upper half of constant 0xfde5380c
         add w9, w9, w22               // Add dest value
         eor x6, x6, x8                // End aux function round 3 H(x,y,z)=(x^y^z)
-        add w9, w9, w13               // Add constant 0xfde5380c
+        add w9, w9, w23               // Add constant 0xfde5380c
         add w9, w9, w6                // Add aux function result
         eor x6, x8, x17               // Begin aux function round 3 H(x,y,z)=(x^y^z)
         ror w9, w9, #9                // Rotate left s=23 bits
@@ -423,21 +423,21 @@ ossl_md5_blocks_loop:
         add w17, w17, w6              // Add aux function result
         eor x6, x4, x9                // Begin aux function round 3 H(x,y,z)=(x^y^z)
         ror w17, w17, #21             // Rotate left s=11 bits
-        movz x13, #0x4b60             // Load lower half of constant 0xf6bb4b60
+        movz x23, #0x4b60             // Load lower half of constant 0xf6bb4b60
         add w17, w4, w17              // Add X parameter round 3 D=HH(D, A, B, C, 0x4bdecfa9, s=11, M[4])
-        movk x13, #0xf6bb, lsl #16    // Load upper half of constant 0xf6bb4b60
+        movk x23, #0xf6bb, lsl #16    // Load upper half of constant 0xf6bb4b60
         add x8, x8, x7, lsr #32       // Add dest value M[7]
         eor x6, x6, x17               // End aux function round 3 H(x,y,z)=(x^y^z)
-        add w8, w8, w13               // Add constant 0xf6bb4b60
+        add w8, w8, w23               // Add constant 0xf6bb4b60
         add w8, w8, w6                // Add aux function result
         ror w8, w8, #16               // Rotate left s=16 bits
         eor x6, x17, x4               // Begin aux function round 3 H(x,y,z)=(x^y^z)
-        movz x13, #0xbc70             // Load lower half of constant 0xbebfbc70
+        movz x23, #0xbc70             // Load lower half of constant 0xbebfbc70
         add w8, w17, w8               // Add X parameter round 3 C=HH(C, D, A, B, 0xf6bb4b60, s=16, M[7])
-        movk x13, #0xbebf, lsl #16    // Load upper half of constant 0xbebfbc70
+        movk x23, #0xbebf, lsl #16    // Load upper half of constant 0xbebfbc70
         add w9, w9, w16               // Add dest value
         eor x6, x6, x8                // End aux function round 3 H(x,y,z)=(x^y^z)
-        add w9, w9, w13               // Add constant 0xbebfbc70
+        add w9, w9, w23               // Add constant 0xbebfbc70
         add w9, w9, w6                // Add aux function result
         eor x6, x8, x17               // Begin aux function round 3 H(x,y,z)=(x^y^z)
         ror w9, w9, #9                // Rotate left s=23 bits
@@ -459,21 +459,21 @@ ossl_md5_blocks_loop:
         add w17, w17, w6              // Add aux function result
         eor x6, x4, x9                // Begin aux function round 3 H(x,y,z)=(x^y^z)
         ror w17, w17, #21             // Rotate left s=11 bits
-        movz x13, #0x3085             // Load lower half of constant 0xd4ef3085
+        movz x23, #0x3085             // Load lower half of constant 0xd4ef3085
         add w17, w4, w17              // Add X parameter round 3 D=HH(D, A, B, C, 0xeaa127fa, s=11, M[0])
-        movk x13, #0xd4ef, lsl #16    // Load upper half of constant 0xd4ef3085
+        movk x23, #0xd4ef, lsl #16    // Load upper half of constant 0xd4ef3085
         add x8, x8, x3, lsr #32       // Add dest value M[3]
         eor x6, x6, x17               // End aux function round 3 H(x,y,z)=(x^y^z)
-        add w8, w8, w13               // Add constant 0xd4ef3085
+        add w8, w8, w23               // Add constant 0xd4ef3085
         add w8, w8, w6                // Add aux function result
         ror w8, w8, #16               // Rotate left s=16 bits
         eor x6, x17, x4               // Begin aux function round 3 H(x,y,z)=(x^y^z)
-        movz x13, #0x1d05             // Load lower half of constant 0x4881d05
+        movz x23, #0x1d05             // Load lower half of constant 0x4881d05
         add w8, w17, w8               // Add X parameter round 3 C=HH(C, D, A, B, 0xd4ef3085, s=16, M[3])
-        movk x13, #0x488, lsl #16     // Load upper half of constant 0x4881d05
+        movk x23, #0x488, lsl #16     // Load upper half of constant 0x4881d05
         add w9, w9, w7                // Add dest value
         eor x6, x6, x8                // End aux function round 3 H(x,y,z)=(x^y^z)
-        add w9, w9, w13               // Add constant 0x4881d05
+        add w9, w9, w23               // Add constant 0x4881d05
         add w9, w9, w6                // Add aux function result
         eor x6, x8, x17               // Begin aux function round 3 H(x,y,z)=(x^y^z)
         ror w9, w9, #9                // Rotate left s=23 bits
@@ -495,30 +495,30 @@ ossl_md5_blocks_loop:
         add w17, w17, w6              // Add aux function result
         eor x6, x4, x9                // Begin aux function round 3 H(x,y,z)=(x^y^z)
         ror w17, w17, #21             // Rotate left s=11 bits
-        movz x13, #0x7cf8             // Load lower half of constant 0x1fa27cf8
+        movz x23, #0x7cf8             // Load lower half of constant 0x1fa27cf8
         add w17, w4, w17              // Add X parameter round 3 D=HH(D, A, B, C, 0xe6db99e5, s=11, M[12])
-        movk x13, #0x1fa2, lsl #16    // Load upper half of constant 0x1fa27cf8
+        movk x23, #0x1fa2, lsl #16    // Load upper half of constant 0x1fa27cf8
         add x8, x8, x22, lsr #32      // Add dest value M[15]
         eor x6, x6, x17               // End aux function round 3 H(x,y,z)=(x^y^z)
-        add w8, w8, w13               // Add constant 0x1fa27cf8
+        add w8, w8, w23               // Add constant 0x1fa27cf8
         add w8, w8, w6                // Add aux function result
         ror w8, w8, #16               // Rotate left s=16 bits
         eor x6, x17, x4               // Begin aux function round 3 H(x,y,z)=(x^y^z)
-        movz x13, #0x5665             // Load lower half of constant 0xc4ac5665
+        movz x23, #0x5665             // Load lower half of constant 0xc4ac5665
         add w8, w17, w8               // Add X parameter round 3 C=HH(C, D, A, B, 0x1fa27cf8, s=16, M[15])
-        movk x13, #0xc4ac, lsl #16    // Load upper half of constant 0xc4ac5665
+        movk x23, #0xc4ac, lsl #16    // Load upper half of constant 0xc4ac5665
         add w9, w9, w3                // Add dest value
         eor x6, x6, x8                // End aux function round 3 H(x,y,z)=(x^y^z)
-        add w9, w9, w13               // Add constant 0xc4ac5665
+        add w9, w9, w23               // Add constant 0xc4ac5665
         add w9, w9, w6                // Add aux function result
         ror w9, w9, #9                // Rotate left s=23 bits
         movz x6, #0x2244              // Load lower half of constant 0xf4292244
         movk x6, #0xf429, lsl #16     // Load upper half of constant 0xf4292244
         add w9, w8, w9                // Add X parameter round 3 B=HH(B, C, D, A, 0xc4ac5665, s=23, M[2])
         add w4, w4, w15               // Add dest value
-        orn x13, x9, x17              // Begin aux function round 4 I(x,y,z)=((~z|x)^y)
+        orn x23, x9, x17              // Begin aux function round 4 I(x,y,z)=((~z|x)^y)
         add w4, w4, w6                // Add constant 0xf4292244
-        eor x6, x8, x13               // End aux function round 4 I(x,y,z)=((~z|x)^y)
+        eor x6, x8, x23               // End aux function round 4 I(x,y,z)=((~z|x)^y)
         add w4, w4, w6                // Add aux function result
         ror w4, w4, #26               // Rotate left s=6 bits
         movz x6, #0xff97              // Load lower half of constant 0x432aff97
@@ -542,19 +542,19 @@ ossl_md5_blocks_loop:
         movz x17, #0xa039             // Load lower half of constant 0xfc93a039
         movk x17, #0xfc93, lsl #16    // Load upper half of constant 0xfc93a039
         add w8, w6, w8                // Add X parameter round 4 C=II(C, D, A, B, 0xab9423a7, s=15, M[14])
-        orn x13, x8, x4               // Begin aux function round 4 I(x,y,z)=((~z|x)^y)
+        orn x23, x8, x4               // Begin aux function round 4 I(x,y,z)=((~z|x)^y)
         add x9, x9, x14, lsr #32      // Add dest value M[5]
-        eor x13, x6, x13              // End aux function round 4 I(x,y,z)=((~z|x)^y)
+        eor x23, x6, x23              // End aux function round 4 I(x,y,z)=((~z|x)^y)
         add w9, w9, w17               // Add constant 0xfc93a039
-        add w17, w9, w13              // Add aux function result
+        add w17, w9, w23              // Add aux function result
         ror w17, w17, #11             // Rotate left s=21 bits
         movz x9, #0x59c3              // Load lower half of constant 0x655b59c3
         movk x9, #0x655b, lsl #16     // Load upper half of constant 0x655b59c3
         add w17, w8, w17              // Add X parameter round 4 B=II(B, C, D, A, 0xfc93a039, s=21, M[5])
         add w4, w4, w21               // Add dest value
-        orn x13, x17, x6              // Begin aux function round 4 I(x,y,z)=((~z|x)^y)
+        orn x23, x17, x6              // Begin aux function round 4 I(x,y,z)=((~z|x)^y)
         add w9, w4, w9                // Add constant 0x655b59c3
-        eor x4, x8, x13               // End aux function round 4 I(x,y,z)=((~z|x)^y)
+        eor x4, x8, x23               // End aux function round 4 I(x,y,z)=((~z|x)^y)
         add w9, w9, w4                // Add aux function result
         ror w9, w9, #26               // Rotate left s=6 bits
         movz x4, #0xcc92              // Load lower half of constant 0x8f0ccc92
